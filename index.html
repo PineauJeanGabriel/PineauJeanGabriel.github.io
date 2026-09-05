@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jean-Gabriel Pineau — Géographe & Analyste SIG</title>
+<title>Jean-Gabriel Pineau · Géographe &amp; Analyste SIG</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --teal-900:#0E252A;
-  --teal-800:#1B3A40;
-  --teal-600:#2E7270;
-  --teal-400:#4FA6A0;
-  --teal-200:#A8D4D1;
-  --teal-100:#D6EDEB;
-  --teal-50:#EAF4F3;
-  --ivory:#F7F5F0;
-  --sand:#EDE8DF;
-  --text:#1A1A1A;
-  --muted:#6B7E80;
+  --teal-900:#152535;
+  --teal-800:#1C3448;
+  --teal-600:#2E5970;
+  --teal-400:#4A85A0;
+  --teal-200:#9FC3D6;
+  --teal-100:#CDE2EC;
+  --teal-50:#EBF4F8;
+  --ivory:#F5F0E8;
+  --sand:#EDE8DC;
+  --text:#1E1E1E;
+  --muted:#6B7A7F;
   --serif:'Source Serif 4',Georgia,serif;
   --sans:'Inter',system-ui,sans-serif;
 }
@@ -93,7 +93,7 @@ nav{
 
 /* ─── ABOUT ─── */
 #about{background:var(--ivory)}
-.about-grid{display:grid;grid-template-columns:1fr 380px;gap:4rem;max-width:1100px}
+.about-grid{display:grid;grid-template-columns:1fr;gap:2rem;max-width:800px}
 .about-text{font-size:1.05rem;line-height:1.85;color:#3a3a3a;font-weight:300}
 .about-text p+p{margin-top:1rem}
 .about-text strong{color:var(--teal-800);font-weight:600}
@@ -130,7 +130,7 @@ nav{
 .projet-bullets li{
   font-size:.88rem;color:#4a4a4a;padding-left:1rem;position:relative;line-height:1.55;
 }
-.projet-bullets li::before{content:'—';position:absolute;left:0;color:var(--teal-400)}
+.projet-bullets li::before{content:'·';position:absolute;left:0;color:var(--teal-400);font-size:1.2rem;line-height:1.2}
 .projet-stack{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto;padding-top:.8rem}
 .tag{
   font-size:.7rem;font-weight:500;letter-spacing:.04em;
@@ -240,9 +240,9 @@ footer p{font-size:.72rem;color:var(--muted);letter-spacing:.04em}
   </svg>
 
   <div style="position:relative;max-width:700px">
-    <p class="hero-coords">46°54'N &nbsp;·&nbsp; 6°21'E &nbsp;·&nbsp; Bassin du Doubs</p>
+    <p class="hero-coords">Orléans &nbsp;47°54'N 1°54'E &nbsp;·&nbsp; Bassin du Doubs &nbsp;46°54'N 6°21'E</p>
     <h1 class="hero-name">Jean-Gabriel<br><span>Pineau</span></h1>
-    <p class="hero-tagline">Étudiant en Master Eau et Territoire — analyse spatiale, milieux aquatiques et gestion de bassin versant.</p>
+    <p class="hero-tagline">Comprendre les territoires par la cartographie pour mieux accompagner la gestion de l'eau.</p>
     <div class="hero-ctas">
       <!-- Remplacer le href par le lien vers ton CV hébergé -->
       <a href="CV_Pineau_Jean-Gabriel.pdf" class="btn btn-primary" download>
@@ -261,29 +261,17 @@ footer p{font-size:.72rem;color:var(--muted);letter-spacing:.04em}
 
 <!-- ABOUT -->
 <section id="about" class="section">
-  <div class="section-eyebrow">01 — Profil</div>
+  <div class="section-eyebrow">01. Profil</div>
   <h2 class="section-title">Géographe spécialisé<br>en milieux aquatiques</h2>
   <div class="section-divider"></div>
   <div class="about-grid">
     <div class="about-text">
-      <p>Étudiant en <strong>Master Géographie « Eau et Territoire »</strong> à l'Université d'Orléans, je suis actuellement en stage de 5 mois à l'<strong>EPAGE Haut-Doubs Haute-Loue</strong> (Pontarlier, Doubs), structure porteuse du SAGE Haut-Doubs Haute-Loue.</p>
-      <p>Mon travail porte sur la <strong>mise à jour de l'état des lieux du SAGE</strong> : caractérisation des pressions agricoles et cartographie de la continuité écologique des cours d'eau via le traitement Python du Référentiel des Obstacles à l'Écoulement (OFB).</p>
-      <p>Formé à l'analyse spatiale (QGIS, ArcGIS, Python, R), je m'intéresse aux problématiques de <strong>gestion quantitative et qualitative de l'eau</strong>, à l'hydromorphologie et aux zones humides. Je recherche un <strong>stage de M2 à partir de 2027</strong>.</p>
+      <p>Étudiant en <strong>Master Géographie, Aménagement, Environnement et Développement (GAED), parcours « Eau et Territoires »</strong> à l'Université d'Orléans, je poursuis ma formation jusqu'en janvier 2027.</p>
+      <p>Lors de mon stage de Master 1 à l'<strong>EPAGE Haut-Doubs Haute-Loue</strong>, j'ai travaillé sur la mise à jour de l'état des lieux du Schéma d'Aménagement et de Gestion des Eaux (SAGE). J'ai contribué à la réalisation du document d'état des lieux à travers la production et l'analyse de cartographies destinées au futur SAGE. Parallèlement, dans le cadre de mon mémoire de Master 1, j'ai étudié la caractérisation des pressions agricoles sur les milieux aquatiques.</p>
+      <p>Au cours de mon cursus, j'ai également travaillé sur les évolutions morphologiques d'un bassin versant du Spitzberg, en contexte de déglaciation rapide dans l'archipel du Svalbard, lors d'un travail universitaire de trois mois réalisé pendant ma licence de géographie et d'aménagement à l'Université Marie et Louis Pasteur à Besançon.</p>
+      <p>Formé à l'analyse spatiale et à la cartographie (QGIS, ArcGIS, Python, R), je m'intéresse particulièrement aux problématiques de gestion quantitative et qualitative de l'eau, à l'hydromorphologie et aux zones humides. Je recherche actuellement un <strong>stage de Master 2 à partir de 2027</strong>, dans le domaine de la gestion de l'eau et des milieux aquatiques.</p>
     </div>
-    <div class="about-stats">
-      <div class="stat-card">
-        <div class="stat-num">2 320</div>
-        <div class="stat-label">km² du périmètre du SAGE Haut-Doubs Haute-Loue</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">5 mois</div>
-        <div class="stat-label">Stage en cours — EPAGE Haut-Doubs Haute-Loue, 2026</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">B2 · B2</div>
-        <div class="stat-label">Anglais · Allemand (A2 Russe)</div>
-      </div>
-    </div>
+
   </div>
 </section>
 
@@ -292,13 +280,13 @@ footer p{font-size:.72rem;color:var(--muted);letter-spacing:.04em}
 <section style="background:var(--teal-800);padding:3.5rem 3rem;text-align:center">
   <p style="font-family:var(--serif);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal-400);margin-bottom:.8rem">Productions cartographiques</p>
   <h2 style="font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:300;color:#fff;margin-bottom:.9rem">Une centaine de cartes réalisées<br>durant le stage</h2>
-  <p style="font-size:.95rem;color:var(--teal-200);font-weight:300;max-width:480px;margin:0 auto 2rem;line-height:1.7">Continuité écologique, pressions agricoles, hydrographie, zones humides — toutes les productions cartographiques du SAGE HDHL sont consultables en ligne.</p>
+  <p style="font-size:.95rem;color:var(--teal-200);font-weight:300;max-width:480px;margin:0 auto 2rem;line-height:1.7">Continuité écologique, pressions agricoles, hydrographie, zones humides… Découvrez l'ensemble de mes productions cartographiques réalisées au cours de mon cursus et consultables en ligne.</p>
   <a href="atlas.html" style="display:inline-flex;align-items:center;gap:.6rem;padding:.8rem 2rem;background:var(--teal-400);color:#fff;font-family:var(--sans);font-size:.82rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:background .2s">Ouvrir l'atlas →</a>
 </section>
 
 <!-- PROJETS -->
 <section id="projets" class="section">
-  <div class="section-eyebrow">02 — Réalisations</div>
+  <div class="section-eyebrow">02. Réalisations</div>
   <h2 class="section-title">Projets</h2>
   <div class="section-divider"></div>
   <div class="projets-grid">
@@ -306,18 +294,20 @@ footer p{font-size:.72rem;color:var(--muted);letter-spacing:.04em}
     <!-- Projet 1 : EPAGE -->
     <div class="projet-card">
       <div class="projet-card-header">
-        <div class="projet-tag">Stage M1 — En cours</div>
+        <div class="projet-tag">Stage M1</div>
         <div class="projet-title">Mise à jour de l'état des lieux du SAGE Haut-Doubs Haute-Loue</div>
-        <div class="projet-org">EPAGE Haut-Doubs Haute-Loue, Pontarlier · 2026</div>
+        <div class="projet-org">EPAGE Haut-Doubs Haute-Loue, Ornans · 2026</div>
       </div>
       <div class="projet-body">
         <div class="projet-period">Mars 2026 – Août 2026 (5 mois)</div>
-        <p class="projet-desc">Diagnostic des pressions agricoles et cartographie de la continuité écologique sur un territoire de 2 320 km² structuré par la filière laitière AOP Comté.</p>
+        <p class="projet-desc">Diagnostic territorial et caractérisation des pressions agricoles sur les milieux aquatiques en contexte karstique jurassien, sur un territoire de 2 270 km² structuré par la filière laitière AOP Comté.</p>
         <ul class="projet-bullets">
-          <li>Caractérisation des pressions agricoles sur les milieux aquatiques</li>
-          <li>Croisement ROE (OFB) × réseau hydrographique SAGE — calcul d'un taux de franchissabilité par fenêtre glissante (1 km)</li>
+          <li>Recherche, exploitation et analyse de données</li>
+          <li>Développement d'outils d'aide à la décision</li>
+          <li>Organisation et participation aux réunions entre acteurs (Chambre d'agriculture 25/90, Département du Doubs)</li>
           <li>Production de cartes thématiques sous QGIS</li>
-          <li>Rédaction de l'état des lieux et soutenance devant jury universitaire</li>
+          <li>Aide à la rédaction de l'état des lieux du SAGE</li>
+          <li>Synthèse technique et rédaction scientifique</li>
         </ul>
         <div class="projet-stack">
           <span class="tag">Python</span>
@@ -335,13 +325,13 @@ footer p{font-size:.72rem;color:var(--muted);letter-spacing:.04em}
       <div class="projet-card-header">
         <div class="projet-tag">Mémoire de Licence</div>
         <div class="projet-title">Évolutions morphologiques d'un bassin versant en déglaciation rapide (Svalbard)</div>
-        <div class="projet-org">Université de Franche-Comté · 2024-2025</div>
+        <div class="projet-org">Université Marie et Louis Pasteur, Besançon · 2024-2025</div>
       </div>
       <div class="projet-body">
         <div class="projet-period">Décembre 2024 – Juin 2025</div>
         <p class="projet-desc">Quantification et analyse des évolutions morphologiques dans un bassin versant arctique par modélisation numérique de terrain et télédétection.</p>
         <ul class="projet-bullets">
-          <li>Réalisation de modèles numériques de terrain (MNT) — ArcGIS</li>
+          <li>Réalisation de modèles numériques de terrain (MNT) sous ArcGIS</li>
           <li>Manipulation et interprétation de données de terrain</li>
           <li>Rédaction d'un mémoire scientifique et présentation orale</li>
         </ul>
@@ -359,7 +349,7 @@ footer p{font-size:.72rem;color:var(--muted);letter-spacing:.04em}
 
 <!-- COMPETENCES -->
 <section id="competences" class="section">
-  <div class="section-eyebrow">03 — Outils</div>
+  <div class="section-eyebrow">03. Outils</div>
   <h2 class="section-title">Compétences</h2>
   <div class="section-divider"></div>
   <div class="comp-grid" style="max-width:1100px">
@@ -392,7 +382,7 @@ footer p{font-size:.72rem;color:var(--muted);letter-spacing:.04em}
       <div class="comp-group-title">Terrain & données</div>
       <div class="comp-items">
         <div class="comp-item">Relevés de terrain</div>
-        <div class="comp-item">Analyse statistique</div>
+        <div class="comp-item">Recherche de données et analyse statistique</div>
         <div class="comp-item">Modèles numériques de terrain</div>
       </div>
     </div>
@@ -413,9 +403,9 @@ footer p{font-size:.72rem;color:var(--muted);letter-spacing:.04em}
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-inner">
-    <div class="section-eyebrow" style="color:var(--teal-400)">04 — Contact</div>
+    <div class="section-eyebrow" style="color:var(--teal-400)">04. Contact</div>
     <h2 class="contact-title">Parlons de votre projet</h2>
-    <p class="contact-sub">Disponible pour un stage de M2 à partir de 2027. N'hésitez pas à me contacter par mail ou téléphone.</p>
+    <p class="contact-sub">Disponible pour un stage de M2 à partir de 2027, sans limite géographique. N'hésitez pas à me contacter par mail ou téléphone.</p>
     <div class="contact-links">
       <a href="mailto:jean-gabriel.pineau@etu.univ-orleans.fr" class="contact-link">
         <span class="contact-link-icon">✉</span>
