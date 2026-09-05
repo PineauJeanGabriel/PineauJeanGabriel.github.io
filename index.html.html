@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jean-Gabriel Pineau — Géographe & Analyste SIG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal-900:#0E252A;
+  --teal-800:#1B3A40;
+  --teal-600:#2E7270;
+  --teal-400:#4FA6A0;
+  --teal-200:#A8D4D1;
+  --teal-100:#D6EDEB;
+  --teal-50:#EAF4F3;
+  --ivory:#F7F5F0;
+  --sand:#EDE8DF;
+  --text:#1A1A1A;
+  --muted:#6B7E80;
+  --serif:'Source Serif 4',Georgia,serif;
+  --sans:'Inter',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--sans);color:var(--text);background:var(--ivory)}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 3rem;
+  background:rgba(14,37,42,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(79,166,160,0.15);
+}
+.nav-logo{font-family:var(--serif);font-size:1.1rem;font-weight:400;color:#fff;letter-spacing:.02em;text-decoration:none}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--teal-200);font-size:.82rem;text-decoration:none;font-weight:500;letter-spacing:.07em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:#fff}
+
+/* ─── HERO ─── */
+#hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  background:var(--teal-800);
+  position:relative;overflow:hidden;padding:6rem 3rem 4rem;
+}
+.topo-canvas{position:absolute;inset:0;opacity:.07;pointer-events:none}
+.hero-coords{
+  font-family:var(--sans);font-size:.72rem;font-weight:500;letter-spacing:.18em;
+  color:var(--teal-400);text-transform:uppercase;margin-bottom:1.8rem;
+}
+.hero-name{
+  font-family:var(--serif);font-size:clamp(3rem,7vw,5.5rem);font-weight:300;
+  color:#fff;line-height:1.05;margin-bottom:1rem;
+}
+.hero-name span{color:var(--teal-400);font-style:italic}
+.hero-tagline{
+  font-family:var(--serif);font-size:clamp(1rem,2.2vw,1.35rem);font-weight:300;font-style:italic;
+  color:var(--teal-200);max-width:520px;line-height:1.7;margin-bottom:2.8rem;
+}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.75rem 1.6rem;border-radius:2px;
+  font-family:var(--sans);font-size:.82rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+  text-decoration:none;transition:all .22s;cursor:pointer;border:none;
+}
+.btn-primary{background:var(--teal-400);color:#fff}
+.btn-primary:hover{background:var(--teal-200);color:var(--teal-800)}
+.btn-outline{background:transparent;color:var(--teal-200);border:1px solid var(--teal-400)}
+.btn-outline:hover{background:rgba(79,166,160,.12)}
+.hero-scroll{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  color:var(--teal-400);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+}
+.scroll-line{width:1px;height:40px;background:var(--teal-400);animation:scrollPulse 2s infinite}
+@keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(.6) translateY(-8px)}50%{opacity:1;transform:scaleY(1) translateY(0)}}
+
+/* ─── SECTIONS COMMON ─── */
+.section{padding:5rem 3rem}
+.section-eyebrow{
+  font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--teal-600);margin-bottom:1rem;
+}
+.section-title{
+  font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:400;
+  color:var(--teal-800);margin-bottom:2.5rem;line-height:1.25;
+}
+.section-divider{width:3rem;height:2px;background:var(--teal-400);margin:1.2rem 0 2.5rem}
+
+/* ─── ABOUT ─── */
+#about{background:var(--ivory)}
+.about-grid{display:grid;grid-template-columns:1fr 380px;gap:4rem;max-width:1100px}
+.about-text{font-size:1.05rem;line-height:1.85;color:#3a3a3a;font-weight:300}
+.about-text p+p{margin-top:1rem}
+.about-text strong{color:var(--teal-800);font-weight:600}
+.about-stats{display:flex;flex-direction:column;gap:1.2rem}
+.stat-card{
+  background:#fff;border:1px solid var(--teal-100);
+  padding:1.4rem 1.6rem;border-left:3px solid var(--teal-400);
+}
+.stat-num{font-family:var(--serif);font-size:2.2rem;font-weight:300;color:var(--teal-800);line-height:1}
+.stat-label{font-size:.78rem;color:var(--muted);margin-top:.3rem;letter-spacing:.04em}
+
+/* ─── PROJETS ─── */
+#projets{background:var(--teal-50)}
+.projets-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1.5rem;max-width:1100px}
+.projet-card{background:#fff;border:1px solid var(--teal-100);overflow:hidden;display:flex;flex-direction:column}
+.projet-card-header{
+  padding:1.6rem 1.8rem 1.4rem;
+  background:var(--teal-800);
+  position:relative;
+}
+.projet-tag{
+  display:inline-block;background:var(--teal-400);color:#fff;
+  font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  padding:.25rem .7rem;margin-bottom:.9rem;border-radius:1px;
+}
+.projet-title{
+  font-family:var(--serif);font-size:1.2rem;font-weight:400;color:#fff;line-height:1.4;
+}
+.projet-org{font-size:.78rem;color:var(--teal-200);margin-top:.4rem;font-style:italic}
+.projet-body{padding:1.6rem 1.8rem;flex:1;display:flex;flex-direction:column;gap:1rem}
+.projet-period{font-size:.75rem;color:var(--muted);font-weight:500;letter-spacing:.05em;text-transform:uppercase}
+.projet-desc{font-size:.92rem;line-height:1.75;color:#4a4a4a;font-weight:300}
+.projet-bullets{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-top:.3rem}
+.projet-bullets li{
+  font-size:.88rem;color:#4a4a4a;padding-left:1rem;position:relative;line-height:1.55;
+}
+.projet-bullets li::before{content:'—';position:absolute;left:0;color:var(--teal-400)}
+.projet-stack{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto;padding-top:.8rem}
+.tag{
+  font-size:.7rem;font-weight:500;letter-spacing:.04em;
+  background:var(--teal-50);color:var(--teal-600);border:1px solid var(--teal-200);
+  padding:.2rem .6rem;border-radius:1px;
+}
+
+/* ─── COMPETENCES ─── */
+#competences{background:var(--ivory)}
+.comp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.8rem;max-width:1100px}
+.comp-group{}
+.comp-group-title{
+  font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--teal-600);border-bottom:1px solid var(--teal-100);
+  padding-bottom:.5rem;margin-bottom:.9rem;
+}
+.comp-items{display:flex;flex-direction:column;gap:.4rem}
+.comp-item{
+  display:flex;align-items:center;gap:.6rem;
+  font-size:.88rem;color:#3a3a3a;
+}
+.comp-item::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--teal-400);flex-shrink:0}
+.lang-grid{display:flex;flex-direction:column;gap:.5rem}
+.lang-item{display:flex;justify-content:space-between;align-items:center;font-size:.88rem}
+.lang-level{font-size:.72rem;font-weight:600;color:var(--teal-600);letter-spacing:.06em}
+
+/* ─── CONTACT ─── */
+#contact{background:var(--teal-800);padding:5rem 3rem}
+.contact-inner{max-width:600px}
+.contact-title{
+  font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:300;
+  color:#fff;margin-bottom:.6rem;
+}
+.contact-sub{font-size:1rem;color:var(--teal-200);margin-bottom:2.5rem;font-weight:300;line-height:1.7}
+.contact-links{display:flex;flex-direction:column;gap:1rem}
+.contact-link{
+  display:flex;align-items:center;gap:.9rem;
+  color:var(--teal-200);text-decoration:none;font-size:.92rem;
+  padding:.8rem 1rem;border:1px solid rgba(79,166,160,.2);
+  transition:all .2s;
+}
+.contact-link:hover{background:rgba(79,166,160,.1);border-color:var(--teal-400);color:#fff}
+.contact-link-icon{width:18px;text-align:center;color:var(--teal-400);font-size:1rem}
+footer{
+  background:var(--teal-900);
+  padding:1rem 3rem;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;
+}
+footer p{font-size:.72rem;color:var(--muted);letter-spacing:.04em}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:768px){
+  nav{padding:.9rem 1.2rem}
+  .nav-links{gap:1.2rem}
+  #hero{padding:5rem 1.5rem 3rem}
+  .section{padding:3.5rem 1.5rem}
+  .about-grid{grid-template-columns:1fr}
+  .projets-grid{grid-template-columns:1fr}
+  #contact{padding:3.5rem 1.5rem}
+  footer{padding:1rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">J.-G. Pineau</a>
+  <ul class="nav-links">
+    <li><a href="#about">Profil</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="atlas.html">Atlas</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <!-- Topographic contour SVG background -->
+  <svg class="topo-canvas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+    <g fill="none" stroke="#4FA6A0" stroke-width="1">
+      <path d="M-100,600 C200,520 400,650 700,580 S1100,520 1600,600"/>
+      <path d="M-100,550 C200,470 400,600 700,530 S1100,470 1600,550"/>
+      <path d="M-100,500 C200,420 400,550 700,480 S1100,420 1600,500"/>
+      <path d="M-100,450 C200,370 400,500 700,430 S1100,370 1600,450"/>
+      <path d="M-100,400 C200,320 400,450 700,380 S1100,320 1600,400"/>
+      <path d="M-100,350 C150,290 380,400 680,340 S1080,290 1600,360"/>
+      <path d="M-100,650 C200,570 400,700 700,630 S1100,570 1600,650"/>
+      <path d="M-100,700 C200,620 400,750 700,680 S1100,620 1600,700"/>
+      <path d="M-100,750 C200,670 400,800 700,730 S1100,670 1600,750"/>
+      <path d="M-100,300 C120,250 350,360 650,290 S1050,230 1600,310"/>
+      <path d="M-100,250 C100,200 320,320 620,240 S1020,180 1600,260"/>
+      <path d="M200,100 C380,60 500,160 720,100 S1000,40 1200,80"/>
+    </g>
+    <!-- Grid dots -->
+    <g fill="#4FA6A0">
+      <circle cx="100" cy="100" r="1.5" opacity=".5"/><circle cx="300" cy="100" r="1.5" opacity=".5"/>
+      <circle cx="500" cy="100" r="1.5" opacity=".5"/><circle cx="700" cy="100" r="1.5" opacity=".5"/>
+      <circle cx="900" cy="100" r="1.5" opacity=".5"/><circle cx="1100" cy="100" r="1.5" opacity=".5"/>
+      <circle cx="1300" cy="100" r="1.5" opacity=".5"/>
+      <circle cx="100" cy="800" r="1.5" opacity=".5"/><circle cx="300" cy="800" r="1.5" opacity=".5"/>
+      <circle cx="500" cy="800" r="1.5" opacity=".5"/><circle cx="700" cy="800" r="1.5" opacity=".5"/>
+      <circle cx="900" cy="800" r="1.5" opacity=".5"/><circle cx="1100" cy="800" r="1.5" opacity=".5"/>
+      <circle cx="1300" cy="800" r="1.5" opacity=".5"/>
+    </g>
+  </svg>
+
+  <div style="position:relative;max-width:700px">
+    <p class="hero-coords">46°54'N &nbsp;·&nbsp; 6°21'E &nbsp;·&nbsp; Bassin du Doubs</p>
+    <h1 class="hero-name">Jean-Gabriel<br><span>Pineau</span></h1>
+    <p class="hero-tagline">Étudiant en Master Eau et Territoire — analyse spatiale, milieux aquatiques et gestion de bassin versant.</p>
+    <div class="hero-ctas">
+      <!-- Remplacer le href par le lien vers ton CV hébergé -->
+      <a href="CV_Pineau_Jean-Gabriel.pdf" class="btn btn-primary" download>
+        ↓ &nbsp;Télécharger le CV
+      </a>
+      <a href="#contact" class="btn btn-outline">Me contacter</a>
+      <a href="atlas.html" class="btn btn-outline" style="border-color:var(--teal-200)">🗺 Atlas cartographique</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Défiler</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="section-eyebrow">01 — Profil</div>
+  <h2 class="section-title">Géographe spécialisé<br>en milieux aquatiques</h2>
+  <div class="section-divider"></div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Étudiant en <strong>Master Géographie « Eau et Territoire »</strong> à l'Université d'Orléans, je suis actuellement en stage de 5 mois à l'<strong>EPAGE Haut-Doubs Haute-Loue</strong> (Pontarlier, Doubs), structure porteuse du SAGE Haut-Doubs Haute-Loue.</p>
+      <p>Mon travail porte sur la <strong>mise à jour de l'état des lieux du SAGE</strong> : caractérisation des pressions agricoles et cartographie de la continuité écologique des cours d'eau via le traitement Python du Référentiel des Obstacles à l'Écoulement (OFB).</p>
+      <p>Formé à l'analyse spatiale (QGIS, ArcGIS, Python, R), je m'intéresse aux problématiques de <strong>gestion quantitative et qualitative de l'eau</strong>, à l'hydromorphologie et aux zones humides. Je recherche un <strong>stage de M2 à partir de 2027</strong>.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-card">
+        <div class="stat-num">2 320</div>
+        <div class="stat-label">km² du périmètre du SAGE Haut-Doubs Haute-Loue</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">5 mois</div>
+        <div class="stat-label">Stage en cours — EPAGE Haut-Doubs Haute-Loue, 2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">B2 · B2</div>
+        <div class="stat-label">Anglais · Allemand (A2 Russe)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ATLAS TEASER -->
+<section style="background:var(--teal-800);padding:3.5rem 3rem;text-align:center">
+  <p style="font-family:var(--serif);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal-400);margin-bottom:.8rem">Productions cartographiques</p>
+  <h2 style="font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:300;color:#fff;margin-bottom:.9rem">Une centaine de cartes réalisées<br>durant le stage</h2>
+  <p style="font-size:.95rem;color:var(--teal-200);font-weight:300;max-width:480px;margin:0 auto 2rem;line-height:1.7">Continuité écologique, pressions agricoles, hydrographie, zones humides — toutes les productions cartographiques du SAGE HDHL sont consultables en ligne.</p>
+  <a href="atlas.html" style="display:inline-flex;align-items:center;gap:.6rem;padding:.8rem 2rem;background:var(--teal-400);color:#fff;font-family:var(--sans);font-size:.82rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:background .2s">Ouvrir l'atlas →</a>
+</section>
+
+<!-- PROJETS -->
+<section id="projets" class="section">
+  <div class="section-eyebrow">02 — Réalisations</div>
+  <h2 class="section-title">Projets</h2>
+  <div class="section-divider"></div>
+  <div class="projets-grid">
+
+    <!-- Projet 1 : EPAGE -->
+    <div class="projet-card">
+      <div class="projet-card-header">
+        <div class="projet-tag">Stage M1 — En cours</div>
+        <div class="projet-title">Mise à jour de l'état des lieux du SAGE Haut-Doubs Haute-Loue</div>
+        <div class="projet-org">EPAGE Haut-Doubs Haute-Loue, Pontarlier · 2026</div>
+      </div>
+      <div class="projet-body">
+        <div class="projet-period">Mars 2026 – Août 2026 (5 mois)</div>
+        <p class="projet-desc">Diagnostic des pressions agricoles et cartographie de la continuité écologique sur un territoire de 2 320 km² structuré par la filière laitière AOP Comté.</p>
+        <ul class="projet-bullets">
+          <li>Caractérisation des pressions agricoles sur les milieux aquatiques</li>
+          <li>Croisement ROE (OFB) × réseau hydrographique SAGE — calcul d'un taux de franchissabilité par fenêtre glissante (1 km)</li>
+          <li>Production de cartes thématiques sous QGIS</li>
+          <li>Rédaction de l'état des lieux et soutenance devant jury universitaire</li>
+        </ul>
+        <div class="projet-stack">
+          <span class="tag">Python</span>
+          <span class="tag">geopandas</span>
+          <span class="tag">shapely</span>
+          <span class="tag">QGIS</span>
+          <span class="tag">ROE / OFB</span>
+          <span class="tag">SAGE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projet 2 : Svalbard -->
+    <div class="projet-card">
+      <div class="projet-card-header">
+        <div class="projet-tag">Mémoire de Licence</div>
+        <div class="projet-title">Évolutions morphologiques d'un bassin versant en déglaciation rapide (Svalbard)</div>
+        <div class="projet-org">Université de Franche-Comté · 2024-2025</div>
+      </div>
+      <div class="projet-body">
+        <div class="projet-period">Décembre 2024 – Juin 2025</div>
+        <p class="projet-desc">Quantification et analyse des évolutions morphologiques dans un bassin versant arctique par modélisation numérique de terrain et télédétection.</p>
+        <ul class="projet-bullets">
+          <li>Réalisation de modèles numériques de terrain (MNT) — ArcGIS</li>
+          <li>Manipulation et interprétation de données de terrain</li>
+          <li>Rédaction d'un mémoire scientifique et présentation orale</li>
+        </ul>
+        <div class="projet-stack">
+          <span class="tag">ArcGIS</span>
+          <span class="tag">MNT</span>
+          <span class="tag">Télédétection</span>
+          <span class="tag">Géomorphologie glaciaire</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPETENCES -->
+<section id="competences" class="section">
+  <div class="section-eyebrow">03 — Outils</div>
+  <h2 class="section-title">Compétences</h2>
+  <div class="section-divider"></div>
+  <div class="comp-grid" style="max-width:1100px">
+
+    <div class="comp-group">
+      <div class="comp-group-title">SIG & Cartographie</div>
+      <div class="comp-items">
+        <div class="comp-item">QGIS</div>
+        <div class="comp-item">ArcGIS</div>
+      </div>
+    </div>
+
+    <div class="comp-group">
+      <div class="comp-group-title">Programmation</div>
+      <div class="comp-items">
+        <div class="comp-item">Python (geopandas, shapely)</div>
+        <div class="comp-item">R (statistiques)</div>
+      </div>
+    </div>
+
+    <div class="comp-group">
+      <div class="comp-group-title">Télédétection</div>
+      <div class="comp-items">
+        <div class="comp-item">TerrSet</div>
+        <div class="comp-item">ArcGIS</div>
+      </div>
+    </div>
+
+    <div class="comp-group">
+      <div class="comp-group-title">Terrain & données</div>
+      <div class="comp-items">
+        <div class="comp-item">Relevés de terrain</div>
+        <div class="comp-item">Analyse statistique</div>
+        <div class="comp-item">Modèles numériques de terrain</div>
+      </div>
+    </div>
+
+    <div class="comp-group">
+      <div class="comp-group-title">Langues</div>
+      <div class="lang-grid">
+        <div class="lang-item"><span>Français</span><span class="lang-level">Natif</span></div>
+        <div class="lang-item"><span>Anglais</span><span class="lang-level">B2</span></div>
+        <div class="lang-item"><span>Allemand</span><span class="lang-level">B2</span></div>
+        <div class="lang-item"><span>Russe</span><span class="lang-level">A2</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-eyebrow" style="color:var(--teal-400)">04 — Contact</div>
+    <h2 class="contact-title">Parlons de votre projet</h2>
+    <p class="contact-sub">Disponible pour un stage de M2 à partir de 2027. N'hésitez pas à me contacter par mail ou téléphone.</p>
+    <div class="contact-links">
+      <a href="mailto:jean-gabriel.pineau@etu.univ-orleans.fr" class="contact-link">
+        <span class="contact-link-icon">✉</span>
+        jean-gabriel.pineau@etu.univ-orleans.fr
+      </a>
+      <a href="tel:+33647228245" class="contact-link">
+        <span class="contact-link-icon">☏</span>
+        06 47 22 82 45
+      </a>
+      <a href="CV_Pineau_Jean-Gabriel.pdf" class="contact-link" download>
+        <span class="contact-link-icon">↓</span>
+        Télécharger mon CV complet (PDF)
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Jean-Gabriel Pineau</p>
+  <p>Master Géographie Eau et Territoire · Université d'Orléans</p>
+</footer>
+
+<script>
+// Smooth active nav highlight
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current
+      ? '#fff' : 'var(--teal-200)';
+  });
+});
+</script>
+</body>
+</html>

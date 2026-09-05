@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas cartographique — Jean-Gabriel Pineau</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --t900:#0E252A; --t800:#1B3A40; --t600:#2E7270;
+  --t400:#4FA6A0; --t200:#A8D4D1; --t100:#D6EDEB; --t50:#EAF4F3;
+  --ivory:#F7F5F0; --text:#1A1A1A; --muted:#6B7E80;
+  --serif:'Source Serif 4',Georgia,serif;
+  --sans:'Inter',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--ivory);color:var(--text);min-height:100vh}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;
+  padding:.9rem 2.5rem;
+  background:rgba(14,37,42,.95);backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(79,166,160,.15);
+}
+.nav-left{display:flex;align-items:center;gap:1.2rem}
+.nav-back{
+  color:var(--t200);font-size:.78rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  text-decoration:none;display:flex;align-items:center;gap:.4rem;transition:color .2s;
+}
+.nav-back:hover{color:#fff}
+.nav-sep{color:#2E5059;font-size:.9rem}
+.nav-title{font-family:var(--serif);font-size:1rem;font-weight:400;color:#fff}
+.nav-counter{
+  font-size:.75rem;font-weight:500;letter-spacing:.06em;
+  color:var(--t400);background:rgba(79,166,160,.12);
+  border:1px solid rgba(79,166,160,.25);
+  padding:.28rem .8rem;border-radius:1px;
+}
+
+/* ── HEADER ── */
+.page-header{
+  background:var(--t800);padding:2.5rem 2.5rem 2rem;
+  border-bottom:2px solid var(--t400);
+}
+.page-eyebrow{
+  font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--t400);margin-bottom:.6rem;
+}
+.page-title{
+  font-family:var(--serif);font-size:clamp(1.6rem,3.5vw,2.4rem);
+  font-weight:300;color:#fff;margin-bottom:.4rem;
+}
+.page-sub{font-size:.9rem;color:var(--t200);font-weight:300}
+
+/* ── TOOLBAR ── */
+.toolbar{
+  position:sticky;top:55px;z-index:100;
+  background:var(--ivory);
+  border-bottom:1px solid var(--t100);
+  padding:.9rem 2.5rem;
+  display:flex;align-items:center;gap:1rem;flex-wrap:wrap;
+}
+.search-wrap{position:relative;flex:1;min-width:180px;max-width:280px}
+.search-wrap input{
+  width:100%;padding:.5rem .9rem .5rem 2.1rem;
+  border:1px solid var(--t100);background:#fff;
+  font-size:.84rem;font-family:var(--sans);color:var(--text);
+  outline:none;transition:border-color .2s;border-radius:1px;
+}
+.search-wrap input:focus{border-color:var(--t400)}
+.search-icon{
+  position:absolute;left:.65rem;top:50%;transform:translateY(-50%);
+  color:var(--muted);font-size:.85rem;pointer-events:none;
+}
+.filters{display:flex;gap:.4rem;flex-wrap:wrap;flex:1}
+.filter-btn{
+  padding:.38rem .9rem;border:1px solid var(--t200);background:transparent;
+  font-family:var(--sans);font-size:.75rem;font-weight:500;letter-spacing:.05em;
+  color:var(--t600);cursor:pointer;transition:all .18s;border-radius:1px;
+  text-transform:capitalize;white-space:nowrap;
+}
+.filter-btn:hover{border-color:var(--t400);color:var(--t800)}
+.filter-btn.active{background:var(--t800);color:#fff;border-color:var(--t800)}
+
+/* ── GRID ── */
+.grid-wrap{padding:1.5rem 2.5rem 3rem}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:1.2rem;
+}
+.card{
+  background:#fff;border:1px solid var(--t100);
+  cursor:pointer;overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:transform .18s,box-shadow .18s,border-color .18s;
+}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(27,58,64,.12);border-color:var(--t400)}
+.card-thumb{
+  width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center;
+  background:var(--t50);display:block;
+  transition:opacity .3s;
+}
+.card-thumb[data-src]{opacity:0}
+.card-thumb.loaded{opacity:1}
+.card-body{padding:.8rem 1rem .9rem}
+.card-cat{
+  font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--t400);margin-bottom:.3rem;
+}
+.card-title{
+  font-size:.88rem;color:var(--text);line-height:1.45;font-weight:400;
+}
+
+/* empty state */
+.empty{
+  grid-column:1/-1;text-align:center;padding:4rem;
+  color:var(--muted);font-size:.95rem;
+}
+
+/* ── LIGHTBOX ── */
+.lb{
+  display:none;position:fixed;inset:0;z-index:999;
+  background:rgba(10,24,28,.96);
+  flex-direction:column;align-items:center;justify-content:center;
+}
+.lb.open{display:flex}
+.lb-close{
+  position:absolute;top:1.2rem;right:1.6rem;
+  background:none;border:none;color:var(--t200);
+  font-size:1.6rem;cursor:pointer;transition:color .2s;line-height:1;
+}
+.lb-close:hover{color:#fff}
+.lb-img-wrap{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  padding:3rem 4.5rem;max-width:100%;max-height:calc(100vh - 100px);
+}
+.lb-img{
+  max-width:100%;max-height:calc(100vh - 140px);
+  object-fit:contain;display:block;
+  box-shadow:0 16px 64px rgba(0,0,0,.5);
+}
+.lb-bar{
+  width:100%;background:rgba(27,58,64,.8);
+  padding:.8rem 1.8rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem;
+}
+.lb-info{}
+.lb-cat{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--t400);margin-bottom:.2rem}
+.lb-title{font-family:var(--serif);font-size:1.05rem;font-weight:300;color:#fff}
+.lb-actions{display:flex;gap:.6rem;align-items:center}
+.lb-counter{font-size:.75rem;color:var(--t200);letter-spacing:.04em}
+.lb-dl{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.45rem 1rem;background:var(--t400);color:#fff;
+  font-size:.78rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+  text-decoration:none;border-radius:1px;transition:background .2s;
+}
+.lb-dl:hover{background:var(--t200);color:var(--t800)}
+.lb-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(27,58,64,.7);border:1px solid rgba(79,166,160,.2);
+  color:var(--t200);font-size:1.4rem;
+  width:3rem;height:3rem;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .18s;border-radius:1px;line-height:1;
+}
+.lb-nav:hover{background:var(--t800);color:#fff;border-color:var(--t400)}
+.lb-prev{left:1rem}.lb-next{right:1rem}
+
+/* ── RESPONSIVE ── */
+@media(max-width:700px){
+  nav,
+  .page-header,
+  .toolbar,
+  .grid-wrap{padding-left:1rem;padding-right:1rem}
+  .toolbar{top:50px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.8rem}
+  .lb-img-wrap{padding:2.5rem 3rem}
+  .lb-nav{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <a href="index.html" class="nav-back">← Retour au portfolio</a>
+    <span class="nav-sep">|</span>
+    <span class="nav-title">Atlas cartographique</span>
+  </div>
+  <span class="nav-counter" id="counter">Chargement…</span>
+</nav>
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="page-eyebrow">EPAGE Haut-Doubs Haute-Loue · Stage M1 · 2026</div>
+  <h1 class="page-title">Atlas cartographique</h1>
+  <p class="page-sub">Productions cartographiques réalisées durant le stage · SAGE Haut-Doubs Haute-Loue · QGIS · Python</p>
+</header>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input type="search" id="search" placeholder="Rechercher une carte…" autocomplete="off">
+  </div>
+  <div class="filters" id="filters">
+    <button class="filter-btn active" data-cat="all">Toutes</button>
+  </div>
+</div>
+
+<!-- GRID -->
+<div class="grid-wrap">
+  <div class="grid" id="grid">
+    <div class="empty" id="loading">Chargement de l'atlas…</div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" role="dialog" aria-modal="true">
+  <button class="lb-close" id="lb-close" title="Fermer (Échap)">✕</button>
+  <button class="lb-nav lb-prev" id="lb-prev" title="Précédente (←)">‹</button>
+  <button class="lb-nav lb-next" id="lb-next" title="Suivante (→)">›</button>
+  <div class="lb-img-wrap">
+    <img class="lb-img" id="lb-img" src="" alt="">
+  </div>
+  <div class="lb-bar">
+    <div class="lb-info">
+      <div class="lb-cat" id="lb-cat"></div>
+      <div class="lb-title" id="lb-title"></div>
+    </div>
+    <div class="lb-actions">
+      <span class="lb-counter" id="lb-counter"></span>
+      <a class="lb-dl" id="lb-dl" href="" download>↓ Télécharger</a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── État ────────────────────────────────────────────────────────────────────
+let allMaps = [], filtered = [], lbIndex = -1;
+let activeCategory = 'all', searchQuery = '';
+
+// ─── Chargement du manifest ──────────────────────────────────────────────────
+fetch('maps.json')
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(data => {
+    allMaps = data.maps || [];
+    buildFilters(data.categories || []);
+    applyFilter();
+  })
+  .catch(() => {
+    document.getElementById('loading').textContent =
+      'maps.json introuvable. Lance d\'abord prepare_gallery.py.';
+  });
+
+// ─── Filtres ─────────────────────────────────────────────────────────────────
+function buildFilters(categories) {
+  const wrap = document.getElementById('filters');
+  categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.dataset.cat = cat.id;
+    btn.textContent = cat.label + (cat.count ? ` (${cat.count})` : '');
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeCategory = cat.id;
+      applyFilter();
+    });
+    wrap.appendChild(btn);
+  });
+  document.querySelector('[data-cat="all"]').addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('[data-cat="all"]').classList.add('active');
+    activeCategory = 'all';
+    applyFilter();
+  });
+}
+
+document.getElementById('search').addEventListener('input', e => {
+  searchQuery = e.target.value.toLowerCase().trim();
+  applyFilter();
+});
+
+function applyFilter() {
+  filtered = allMaps.filter(m => {
+    const matchCat  = activeCategory === 'all' || m.category === activeCategory;
+    const matchText = !searchQuery
+      || m.title.toLowerCase().includes(searchQuery)
+      || m.category_label.toLowerCase().includes(searchQuery);
+    return matchCat && matchText;
+  });
+  renderGrid();
+}
+
+// ─── Grille ──────────────────────────────────────────────────────────────────
+function renderGrid() {
+  const grid = document.getElementById('grid');
+  const total = allMaps.length;
+  const shown = filtered.length;
+  document.getElementById('counter').textContent =
+    shown === total ? `${total} cartes` : `${shown} / ${total} cartes`;
+
+  grid.innerHTML = '';
+  if (!shown) {
+    grid.innerHTML = '<div class="empty">Aucune carte ne correspond à la recherche.</div>';
+    return;
+  }
+
+  filtered.forEach((map, i) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', map.title);
+
+    const img = document.createElement('img');
+    img.className = 'card-thumb';
+    img.alt = map.title;
+    img.dataset.src = map.file; // lazy load
+
+    const body = document.createElement('div');
+    body.className = 'card-body';
+    body.innerHTML =
+      `<div class="card-cat">${map.category_label}</div>` +
+      `<div class="card-title">${map.title}</div>`;
+
+    card.appendChild(img);
+    card.appendChild(body);
+    card.addEventListener('click', () => openLightbox(i));
+    card.addEventListener('keydown', e => { if (e.key === 'Enter') openLightbox(i); });
+    grid.appendChild(card);
+  });
+
+  lazyLoad();
+}
+
+// ─── Lazy loading ─────────────────────────────────────────────────────────────
+function lazyLoad() {
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('img[data-src]').forEach(img => {
+      img.src = img.dataset.src; img.removeAttribute('data-src');
+      img.classList.add('loaded');
+    });
+    return;
+  }
+  const obs = new IntersectionObserver((entries, o) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const img = e.target;
+      img.src = img.dataset.src;
+      img.removeAttribute('data-src');
+      img.onload = () => img.classList.add('loaded');
+      o.unobserve(img);
+    });
+  }, { rootMargin: '200px' });
+  document.querySelectorAll('img[data-src]').forEach(img => obs.observe(img));
+}
+
+// ─── Lightbox ────────────────────────────────────────────────────────────────
+const lb     = document.getElementById('lb');
+const lbImg  = document.getElementById('lb-img');
+const lbTitle = document.getElementById('lb-title');
+const lbCat  = document.getElementById('lb-cat');
+const lbCtr  = document.getElementById('lb-counter');
+const lbDl   = document.getElementById('lb-dl');
+
+function openLightbox(i) {
+  lbIndex = i;
+  showMap(filtered[i]);
+  lb.classList.add('open');
+  lb.focus();
+}
+
+function showMap(map) {
+  lbImg.src = map.file;
+  lbImg.alt = map.title;
+  lbTitle.textContent = map.title;
+  lbCat.textContent = map.category_label;
+  lbCtr.textContent = `${lbIndex + 1} / ${filtered.length}`;
+  lbDl.href = map.file;
+  lbDl.setAttribute('download', map.file.split('/').pop());
+}
+
+function closeLightbox() { lb.classList.remove('open'); lbImg.src = ''; }
+
+function stepLightbox(dir) {
+  lbIndex = (lbIndex + dir + filtered.length) % filtered.length;
+  showMap(filtered[lbIndex]);
+}
+
+document.getElementById('lb-close').addEventListener('click', closeLightbox);
+document.getElementById('lb-prev').addEventListener('click', () => stepLightbox(-1));
+document.getElementById('lb-next').addEventListener('click', () => stepLightbox(1));
+lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+
+document.addEventListener('keydown', e => {
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft')  stepLightbox(-1);
+  if (e.key === 'ArrowRight') stepLightbox(1);
+});
+</script>
+</body>
+</html>
